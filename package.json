@@ -5,8 +5,9 @@
   "main": "dist",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon -w src --exec \"babel-node run.js --presets es2015,stage-0\"",
-    "build": "babel src -s -D -d dist --presets es2015,stage-0",
+    "dev": "nodemon -w src --exec \"babel-node src/run.js\"",
+    "build": "babel src -s -D -d dist",
+    "prod": "node dist/run.js",
     "start": "node dist/run.js",
     "prestart": "yarn run -s build",
     "lint": "eslint src",

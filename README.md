@@ -65,7 +65,7 @@ yarn lint
 ## Running in Development
 
 ```
-yarn start
+yarn dev
 ```
 
 ## Configuration
@@ -98,6 +98,6 @@ docker build -t node-api-skeleton .
 - [x] Fix up all ES linting errors
 - [x] Use promises for init portion
 - [x] Add environment var based config
-- [ ] Add user attribute cleansing
-- [ ] Fix docker
+- [x] Add user attribute cleansing
+- [x] Fix docker
 - [ ] Add forgot password API

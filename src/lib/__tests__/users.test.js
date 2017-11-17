@@ -8,6 +8,7 @@ import {
   decodeSession,
   hasRole,
   requireRole,
+  exportSafeUser,
 } from '../users';
 
 beforeAll(async () => {
@@ -108,5 +109,16 @@ describe('Users', () => {
     expect(goodToken.length).toBe(123);
     expect(decodeSession(goodToken)).toBe(userId);
     expect(() => decodeSession(badToken)).toThrow('jwt malformed');
+  });
+
+  test('It should convert a user to a safe user object without password hash', async () => {
+    const user = await signup({
+      password: 'hello',
+      passwordRepeat: 'hello',
+      username: 'dominiek',
+      email: 'info@dominiek.com',
+    });
+    expect(user.hash.length).toBe(60);
+    expect(!!exportSafeUser(user).hash).toBe(false);
   });
 });

@@ -45,6 +45,7 @@ describe('User', () => {
     ({ result, error } = response.body);
     expect(error).toBe(undefined);
     expect(result.name).toBe(signupParams.name);
+    expect(!!result.hash).toBe(false);
     expect(!!await User.findOne({ username: 'john' })).toBe(true);
 
     response = await request(app)
@@ -58,6 +59,7 @@ describe('User', () => {
       .send(signupParams);
     ({ result, error } = response.body);
     expect(error).toBe(undefined);
+    expect(!!result.user.hash).toBe(false);
     const { token } = result;
 
     response = await request(app)
@@ -66,6 +68,7 @@ describe('User', () => {
     ({ result, error } = response.body);
     expect(error).toBe(undefined);
     expect(result.name).toBe(signupParams.name);
+    expect(!!result.hash).toBe(false);
   });
 
   test('It should be update my account', async () => {

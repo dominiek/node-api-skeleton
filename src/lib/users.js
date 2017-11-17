@@ -57,6 +57,12 @@ export const authenticate = async (email, password) => {
   throw new Error('Incorrect email or password');
 };
 
+export const exportSafeUser = (user) => {
+  const object = user.toObject();
+  delete object.hash;
+  return object;
+};
+
 export const encodeSession = userId => jwt.sign({ userId }, JWT_SECRET);
 
 export const decodeSession = (token) => {
