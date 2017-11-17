@@ -17,6 +17,7 @@
     "compression": "^1.5.2",
     "cors": "^2.7.1",
     "express": "^4.13.3",
+    "express-async-wrapper": "^0.1.0",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.3",
     "morgan": "^1.8.0",

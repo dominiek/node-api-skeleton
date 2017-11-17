@@ -1633,6 +1633,10 @@ expect@^21.2.1:
     jest-message-util "^21.2.1"
     jest-regex-util "^21.2.0"
 
+express-async-wrapper@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/express-async-wrapper/-/express-async-wrapper-0.1.0.tgz#2988718b933f93b366f4bb290f161db1bc362604"
+
 express@^4.13.3:
   version "4.16.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.2.tgz#e35c6dfe2d64b7dca0a5cd4f21781be3299e076c"

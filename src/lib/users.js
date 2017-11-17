@@ -1,4 +1,7 @@
 
+require('babel-core/register');
+require('babel-polyfill');
+
 import User from '../models/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -49,7 +52,7 @@ export const authenticate = async (email, password) => {
   if (user) {
     const comparison = await bcrypt.compare(password, user.hash)
     if (comparison === true) {
-      return true
+      return user
     }
   }
   throw new Error('Incorrect email or password')

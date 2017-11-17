@@ -96,7 +96,7 @@ describe('Users', () => {
     })
 
     const result = await authenticate('info@dominiek.com', 'hello')
-    expect(result).toBe(true)
+    expect(result.email).toBe('info@dominiek.com')
 
   });
 
