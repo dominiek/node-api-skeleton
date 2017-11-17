@@ -1111,6 +1111,10 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0:
     escape-string-regexp "^1.0.5"
     supports-color "^4.0.0"
 
+change-case@~1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/change-case/-/change-case-1.0.6.tgz#f1bccfc4edf537646de5f8691822d329e4107ae7"
+
 chokidar@^1.6.1, chokidar@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
@@ -3168,6 +3172,12 @@ natural-compare@^1.4.0:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+node-env-configuration@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/node-env-configuration/-/node-env-configuration-1.0.3.tgz#0ff8e18b5f8ca1c9d063d02f7fb70a2ab8ce5b79"
+  dependencies:
+    change-case "~1.0.6"
 
 node-int64@^0.4.0:
   version "0.4.0"

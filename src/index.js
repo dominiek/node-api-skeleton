@@ -4,11 +4,16 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import nodeEnvConfiguration from 'node-env-configuration';
 import initializeDb from './db';
 import middleware from './middleware';
 import api from './api';
-import config from './config.json';
+import configDefaults from '../config/defaults.json';
 
+const config = nodeEnvConfiguration({
+  defaults: configDefaults,
+  prefix: 'api',
+});
 
 const app = express();
 app.server = http.createServer(app);
@@ -36,7 +41,7 @@ const jsonErrorHandler = (err, req, res, next) => {
 };
 
 const initApp = async () => {
-  const db = await initializeDb();
+  const db = await initializeDb({ config });
   // internal middleware
   app.use(middleware({ config, db }));
 
@@ -47,7 +52,7 @@ const initApp = async () => {
 };
 
 const bindApp = async (appToBind) => {
-  appToBind.server.listen(process.env.PORT || config.port, () => {
+  appToBind.server.listen(config.bind.port, config.bind.host, () => {
     console.log(`Started on port ${appToBind.server.address().port}`);
   });
 };
