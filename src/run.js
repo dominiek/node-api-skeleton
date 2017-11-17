@@ -1,6 +1,4 @@
 
 import { initApp, bindApp } from '.';
 
-initApp((app) => {
-  bindApp(app);
-});
+initApp().then(app => bindApp(app));

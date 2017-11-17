@@ -35,20 +35,18 @@ const jsonErrorHandler = (err, req, res, next) => {
   });
 };
 
-const initApp = (callback) => {
-  // connect to db
-  initializeDb((db) => {
+const initApp = async () => {
+  const db = await initializeDb();
   // internal middleware
-    app.use(middleware({ config, db }));
+  app.use(middleware({ config, db }));
 
-    // api router
-    app.use('/', api({ config, db }));
+  // api router
+  app.use('/', api({ config, db }));
 
-    callback(app);
-  });
+  return app;
 };
 
-const bindApp = (appToBind) => {
+const bindApp = async (appToBind) => {
   appToBind.server.listen(process.env.PORT || config.port, () => {
     console.log(`Started on port ${appToBind.server.address().port}`);
   });
