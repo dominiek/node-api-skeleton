@@ -6,6 +6,7 @@ Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs fo
 * Babel/ES6 transpiling
 * Express for middleware
 * Jest for testing, Supertest for mocking express
+* Persistence using Mongoose/MongoDB
 
 ## Install Dependencies
 
@@ -18,6 +19,13 @@ yarn install
 ```
 yarn test
 ```
+
+## Linting
+
+```
+yarn lint
+```
+
 ## Todo
 
 - [x] Basic ES6 express example
@@ -25,6 +33,9 @@ yarn test
 - [x] Add Mongoose persistence example
 - [x] Add await/async test case
 - [x] Make Mongoose test code await/async
-- [ ] Add Mongoose + Express + await/async test case
+- [x] Add Mongoose + Express + await/async test case
 - [ ] Align code style
-- [ ] Add full features user management + APIs
+- [ ] Add full featured user management + APIs
+- [ ] Use promises for init portion
+- [ ] Add environment var based config
+- [ ] Check docker

@@ -1,3 +1,4 @@
+
 import http from 'http';
 import express from 'express';
 import cors from 'cors';
@@ -8,6 +9,9 @@ import middleware from './middleware';
 import api from './api';
 import config from './config.json';
 
+require('babel-core/register');
+require('babel-polyfill');
+
 let app = express();
 app.server = http.createServer(app);
 
@@ -16,36 +20,36 @@ app.use(morgan('dev'));
 
 // 3rd party middleware
 app.use(cors({
-	exposedHeaders: config.corsHeaders
+  exposedHeaders: config.corsHeaders
 }));
 
 app.use(bodyParser.json({
-	limit : config.bodyLimit
+  limit : config.bodyLimit
 }));
 
 const initApp = (callback) => {
-	// connect to db
-	initializeDb( db => {
+  // connect to db
+  initializeDb( db => {
 
-		// internal middleware
-		app.use(middleware({ config, db }));
+  // internal middleware
+  app.use(middleware({ config, db }));
 
-		// api router
-		app.use('/', api({ config, db }));
+  // api router
+  app.use('/', api({ config, db }));
 
-		callback(app)
+  callback(app)
 
-	});
+  });
 }
 
 const bindApp = (app) => {
-	app.server.listen(process.env.PORT || config.port, () => {
-		console.log(`Started on port ${app.server.address().port}`);
-	});
+  app.server.listen(process.env.PORT || config.port, () => {
+    console.log(`Started on port ${app.server.address().port}`);
+  });
 }
 
 export {
-	app,
-	initApp,
-	bindApp
+  app,
+  initApp,
+  bindApp
 }
