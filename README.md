@@ -1,5 +1,5 @@
 
-# Node API skeleton
+# Node API Skeleton
 
 Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs for apps.
 
