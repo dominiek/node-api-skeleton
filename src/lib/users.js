@@ -34,6 +34,7 @@ export const signup = async ({
   if (password !== passwordRepeat) throw new Error('Expected passwords to match')
   const salt = await bcrypt.genSalt(BCRYPT_SALT_ROUNDS)
   user.hash = await bcrypt.hash(password, salt)
+  user.role = 'user'
 
   // Save
   await user.save()

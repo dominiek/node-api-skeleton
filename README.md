@@ -38,4 +38,6 @@ yarn lint
 - [ ] Add full featured user management + APIs
 - [ ] Use promises for init portion
 - [ ] Add environment var based config
-- [ ] Check docker
+- [ ] Fix docker
+- [ ] Document directory structure
+- [ ] Document API

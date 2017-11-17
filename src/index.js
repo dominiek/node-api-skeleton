@@ -27,6 +27,15 @@ app.use(bodyParser.json({
   limit : config.bodyLimit
 }));
 
+const jsonErrorHandler = (err, req, res, next) => {
+  //console.error(err.stack)
+  res.json({
+    error: {
+      message: err.message
+    }
+  })
+}
+
 const initApp = (callback) => {
   // connect to db
   initializeDb( db => {
@@ -51,5 +60,6 @@ const bindApp = (app) => {
 export {
   app,
   initApp,
-  bindApp
+  bindApp,
+  jsonErrorHandler
 }
