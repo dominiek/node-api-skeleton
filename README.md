@@ -7,6 +7,10 @@ Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs fo
 * Express for middleware
 * Jest for testing, Supertest for mocking express
 * Persistence using Mongoose/MongoDB
+* User signup and login API using JSON Web Token
+* JSON Rest API for user management
+* User encryption using BCrypt
+
 
 ## Directory Structure
 
