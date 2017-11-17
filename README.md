@@ -7,7 +7,7 @@ Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs fo
 * Express for middleware
 * Jest for testing, Supertest for mocking express
 * Persistence using Mongoose/MongoDB
-* Dockerized
+* Dockerized using Alpine and Yarn
 * User signup, login and password reset API using JSON Web Token
 * JSON Rest API for user management (admin)
 * User encryption using BCrypt
