@@ -10,7 +10,7 @@ Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs fo
 * User signup and login API using JSON Web Token
 * JSON Rest API for user management
 * User encryption using BCrypt
-
+* AirBnB style syntax and ES linting
 
 ## Directory Structure
 
@@ -72,8 +72,8 @@ yarn lint
 - [x] Add signup and session API
 - [x] Document API
 - [x] Document directory structure
-- [ ] Add AirBnB base
-- [ ] Align code style
+- [x] Add AirBnB base
+- [ ] Fix up all ES linting errors
 - [ ] Add user attribute cleansing
 - [ ] Use promises for init portion
 - [ ] Add environment var based config

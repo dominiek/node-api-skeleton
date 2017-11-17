@@ -10,7 +10,7 @@ import api from './api';
 import config from './config.json';
 
 
-let app = express();
+const app = express();
 app.server = http.createServer(app);
 
 // logger
@@ -18,46 +18,44 @@ app.use(morgan('dev'));
 
 // 3rd party middleware
 app.use(cors({
-  exposedHeaders: config.corsHeaders
+  exposedHeaders: config.corsHeaders,
 }));
 
 app.use(bodyParser.json({
-  limit : config.bodyLimit
+  limit: config.bodyLimit,
 }));
 
 const jsonErrorHandler = (err, req, res, next) => {
-  //console.error(err.stack)
+  // console.error(err.stack)
   res.json({
     error: {
-      message: err.message
-    }
-  })
-}
+      message: err.message,
+    },
+  });
+};
 
 const initApp = (callback) => {
   // connect to db
-  initializeDb( db => {
-
+  initializeDb((db) => {
   // internal middleware
-  app.use(middleware({ config, db }));
+    app.use(middleware({ config, db }));
 
-  // api router
-  app.use('/', api({ config, db }));
+    // api router
+    app.use('/', api({ config, db }));
 
-  callback(app)
-
+    callback(app);
   });
-}
+};
 
 const bindApp = (app) => {
   app.server.listen(process.env.PORT || config.port, () => {
     console.log(`Started on port ${app.server.address().port}`);
   });
-}
+};
 
 export {
   app,
   initApp,
   bindApp,
-  jsonErrorHandler
-}
+  jsonErrorHandler,
+};
