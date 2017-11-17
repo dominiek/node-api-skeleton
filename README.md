@@ -7,6 +7,7 @@ Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs fo
 * Express for middleware
 * Jest for testing, Supertest for mocking express
 * Persistence using Mongoose/MongoDB
+* Dockerized
 * User signup, login and password reset API using JSON Web Token
 * JSON Rest API for user management (admin)
 * User encryption using BCrypt
@@ -53,19 +54,16 @@ POST    /1/users/password/reset        # Use reset password token to set new pas
 yarn install
 ```
 
-## Testing
+## Testing & Linting
 
 ```
 yarn test
-```
-
-## Linting
-
-```
 yarn lint
 ```
 
 ## Running in Development
+
+Code reload using nodemon:
 
 ```
 yarn dev
