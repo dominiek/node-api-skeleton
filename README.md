@@ -7,11 +7,13 @@ Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs fo
 * Express for middleware
 * Jest for testing, Supertest for mocking express
 * Persistence using Mongoose/MongoDB
-* User signup and login API using JSON Web Token
-* JSON Rest API for user management
+* User signup, login and password reset API using JSON Web Token
+* JSON Rest API for user management (admin)
 * User encryption using BCrypt
 * AirBnB style syntax and ES linting
 * Configuration using environment variables
+
+_Note: A Python version of this project can be found [here](https://github.com/dominiek/python-api-skeleton)_
 
 ## Directory Structure
 
@@ -29,7 +31,6 @@ Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs fo
 
 ## API Routes
 
-
 All routes are name spaced with a v1 version:
 
 ```
@@ -42,6 +43,8 @@ GET     /1/users/self                  # Get my user info
 DELETE  /1/users/self                  # Delete my account
 POST    /1/users/self                  # Update my account
 POST    /1/users/sessions              # Get auth token (create session)
+POST    /1/users/password/forgot       # Get forgot password token
+POST    /1/users/password/reset        # Use reset password token to set new password
 ```
 
 ## Install Dependencies
@@ -100,4 +103,4 @@ docker build -t node-api-skeleton .
 - [x] Add environment var based config
 - [x] Add user attribute cleansing
 - [x] Fix docker
-- [ ] Add forgot password API
+- [x] Add forgot password API

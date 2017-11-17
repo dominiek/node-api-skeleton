@@ -161,4 +161,33 @@ describe('User', () => {
     const refreshedUser = await User.findById(user._id);
     expect(refreshedUser.name).toBe('John Galt');
   });
+
+  test('It should be able to recover a password', async () => {
+    let response;
+    let result;
+    let error;
+    const [user] = await createTestUserWithSession('john');
+    const { email } = user;
+    const oldHash = user.hash;
+
+    // Obtain token
+    response = await request(app)
+      .post('/password/forgot')
+      .send({ email });
+    ({ result, error } = response.body);
+    expect(error).toBe(undefined);
+    const { resetPasswordToken } = result;
+    expect(resetPasswordToken.length).toBe(64);
+
+    // Use token
+    const newPassword = 'hello';
+    response = await request(app)
+      .post('/password/reset')
+      .send({ email, resetPasswordToken, newPassword });
+    ({ result, error } = response.body);
+    expect(error).toBe(undefined);
+    expect(result.success).toBe(true);
+    const refreshedUser = await User.findById(user._id);
+    expect(refreshedUser.hash !== oldHash).toBe(true);
+  });
 });

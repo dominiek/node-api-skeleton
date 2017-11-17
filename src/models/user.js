@@ -9,6 +9,7 @@ const schema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   role: { type: String, enum: ['user', 'admin'] },
+  resetPasswordToken: { type: String },
 });
 
 export default mongoose.models.User || mongoose.model('User', schema);

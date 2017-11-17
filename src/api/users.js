@@ -11,6 +11,8 @@ import {
   authenticate,
   encodeSession,
   exportSafeUser,
+  forgotPassword,
+  resetPassword,
 } from '../lib/users';
 import User from '../models/user';
 
@@ -73,21 +75,41 @@ export default () => {
   }));
 
   // Admin delete user
-  api.delete('/:id', requireUser('admin'), asyncWrap(async (req, res, next) => {
+  api.delete('/:id', requireUser('admin'), asyncWrap(async (req, res) => {
     const user = await User.findById(req.params.id);
-    if (!user) return next(new Error('No such user'));
+    if (!user) throw new Error('No such user');
     await user.remove();
     return res.json({ result: { success: true } });
   }));
 
   // Admin update user
-  api.post('/:id', requireUser('admin'), asyncWrap(async (req, res, next) => {
+  api.post('/:id', requireUser('admin'), asyncWrap(async (req, res) => {
     const rawUser = await User.findById(req.params.id);
-    if (!rawUser) return next(new Error('No such user'));
+    if (!rawUser) throw new Error('No such user');
     rawUser.set(req.body);
     await rawUser.save();
     const user = exportSafeUser(rawUser);
     return res.json({ result: user });
+  }));
+
+  // Forgot Password (get token)
+  api.post('/password/forgot', asyncWrap(async (req, res) => {
+    const { email } = req.body;
+    if (!email) throw new Error('No email given');
+    const user = await User.findOne({ email });
+    if (!user) throw new Error('No user by that email found');
+    const resetPasswordToken = await forgotPassword(user);
+    return res.json({ result: { resetPasswordToken } });
+  }));
+
+  // Reset Password (use token to reset)
+  api.post('/password/reset', asyncWrap(async (req, res) => {
+    const { email, resetPasswordToken, newPassword } = req.body;
+    if (!email) throw new Error('No email given');
+    const user = await User.findOne({ email });
+    if (!user) throw new Error('No user by that email found');
+    await resetPassword(user, resetPasswordToken, newPassword);
+    return res.json({ result: { success: true } });
   }));
 
   return api;

@@ -2,6 +2,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
+import { createHash } from 'crypto';
 
 require('babel-core/register');
 require('babel-polyfill');
@@ -75,4 +76,27 @@ export const hasRole = (user, role) => user.role === role;
 
 export const requireRole = (user, role) => {
   if (!hasRole(user, role)) throw new Error('Permission denied');
+};
+
+export const forgotPassword = async (user) => {
+  const hash = createHash('sha256');
+  hash.update(`${user.email}-${user.name}-${Date.now()}`);
+  const resetPasswordToken = hash.digest('hex');
+  user.set({ resetPasswordToken });
+  await user.save();
+  return resetPasswordToken;
+};
+
+export const setPassword = async (user, newPassword) => {
+  const salt = await bcrypt.genSalt(BCRYPT_SALT_ROUNDS);
+  const hash = await bcrypt.hash(newPassword, salt);
+  user.set({ hash });
+  await user.save();
+};
+
+export const resetPassword = async (user, resetPasswordToken, newPassword) => {
+  if (!user.resetPasswordToken || user.resetPasswordToken !== resetPasswordToken) {
+    throw new Error('Invalid reset password token given, could not reset password');
+  }
+  await setPassword(user, newPassword);
 };
