@@ -1,8 +1,8 @@
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User from '../models/user';
 import { createHash } from 'crypto';
+import User from '../models/user';
 
 require('babel-core/register');
 require('babel-polyfill');
