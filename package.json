@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Node API Skeleton",
   "main": "dist",
+  "license": "MIT",
   "scripts": {
     "dev": "nodemon -w src --exec \"babel-node run.js --presets es2015,stage-0\"",
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
@@ -12,6 +13,8 @@
     "test": "jest src"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-core": "^6.9.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
@@ -25,9 +28,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
-    "babel-core": "^6.9.0",
     "babel-jest": "^21.2.0",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-0": "^6.5.0",

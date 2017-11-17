@@ -1,6 +1,6 @@
 
 import { setupMongooseDb, teardownMongooseDb } from '../../lib/testUtils';
-import User from '../../models/User';
+import User from '../../models/user';
 import {
   signup,
   authenticate,

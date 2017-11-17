@@ -1,15 +1,16 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
+import request from 'supertest';
+import controller from '../users';
+import User from '../../models/user';
 
 import { app, jsonErrorHandler } from '../../../src';
-import request from 'supertest';
 import {
   setupMongooseDb,
   teardownMongooseDb,
   createTestUserWithSession,
   generateSessionHeader,
 } from '../../lib/testUtils';
-
-import controller from '../users';
-import User from '../../models/user';
 
 beforeAll(async () => {
   app.use('/', controller({}));
@@ -68,40 +69,40 @@ describe('User', () => {
   });
 
   test('It should be update my account', async () => {
-    const [user, token] = await createTestUserWithSession('john');
+    const [, token] = await createTestUserWithSession('john');
 
     const response = await request(app)
       .post('/self')
       .send({ name: 'John Galt' })
       .set(...generateSessionHeader(token));
-    const { result, error } = response.body;
+    const { error } = response.body;
     expect(error).toBe(undefined);
     expect((await User.findOne({ username: 'john' })).name).toBe('John Galt');
   });
 
   test('It should be delete my account', async () => {
-    const [user, token] = await createTestUserWithSession('john');
+    const [, token] = await createTestUserWithSession('john');
 
     const response = await request(app)
       .delete('/self')
       .set(...generateSessionHeader(token));
-    const { result, error } = response.body;
+    const { error } = response.body;
     expect(error).toBe(undefined);
     expect((await User.count())).toBe(0);
   });
 
   test('It should be able to list users for admin (permission denied)', async () => {
-    const [user, token] = await createTestUserWithSession('john');
+    const [, token] = await createTestUserWithSession('john');
 
     const response = await request(app)
       .get('/')
       .set(...generateSessionHeader(token));
-    const { result, error } = response.body;
+    const { error } = response.body;
     expect(error.message).toBe('Could not authenticate user (invalid permissions)');
   });
 
   test('It should be able to list users for admin', async () => {
-    const [adminUser, adminToken] = await createTestUserWithSession('dominiek', 'admin');
+    const [, adminToken] = await createTestUserWithSession('dominiek', 'admin');
     const response = await request(app)
       .get('/')
       .set(...generateSessionHeader(adminToken));
@@ -123,18 +124,18 @@ describe('User', () => {
   });
 
   test('It should be able to get a delete user for admin (404)', async () => {
-    const [user, token] = await createTestUserWithSession('john');
-    const [adminUser, adminToken] = await createTestUserWithSession('dominiek', 'admin');
+    await createTestUserWithSession('john');
+    const [, adminToken] = await createTestUserWithSession('dominiek', 'admin');
     const response = await request(app)
       .delete('/5a0e88cd0f94c22aae7f6f7c')
       .set(...generateSessionHeader(adminToken));
-    const { result, error } = response.body;
+    const { error } = response.body;
     expect(error.message).toBe('No such user');
   });
 
   test('It should be able to get a delete user for admin', async () => {
-    const [user, token] = await createTestUserWithSession('john');
-    const [adminUser, adminToken] = await createTestUserWithSession('dominiek', 'admin');
+    const [user] = await createTestUserWithSession('john');
+    const [, adminToken] = await createTestUserWithSession('dominiek', 'admin');
     const response = await request(app)
       .delete(`/${user._id}`)
       .set(...generateSessionHeader(adminToken));
@@ -145,13 +146,13 @@ describe('User', () => {
   });
 
   test('It should be able to get a delete user for admin', async () => {
-    const [user, token] = await createTestUserWithSession('john');
-    const [adminUser, adminToken] = await createTestUserWithSession('dominiek', 'admin');
+    const [user] = await createTestUserWithSession('john');
+    const [, adminToken] = await createTestUserWithSession('dominiek', 'admin');
     const response = await request(app)
       .post(`/${user._id}`)
       .send({ name: 'John Galt' })
       .set(...generateSessionHeader(adminToken));
-    const { result, error } = response.body;
+    const { error } = response.body;
     expect(error).toBe(undefined);
 
     const refreshedUser = await User.findById(user._id);

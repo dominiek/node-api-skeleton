@@ -1,7 +1,7 @@
 
-import { version } from '../../package.json';
 import { Router } from 'express';
 import users from './users';
+import { version } from '../../package.json';
 
 export default ({ config, db }) => {
   const api = Router();

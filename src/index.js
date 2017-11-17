@@ -27,7 +27,8 @@ app.use(bodyParser.json({
 
 const jsonErrorHandler = (err, req, res, next) => {
   // console.error(err.stack)
-  res.json({
+  if (!err) return next();
+  return res.json({
     error: {
       message: err.message,
     },
@@ -47,9 +48,9 @@ const initApp = (callback) => {
   });
 };
 
-const bindApp = (app) => {
-  app.server.listen(process.env.PORT || config.port, () => {
-    console.log(`Started on port ${app.server.address().port}`);
+const bindApp = (appToBind) => {
+  appToBind.server.listen(process.env.PORT || config.port, () => {
+    console.log(`Started on port ${appToBind.server.address().port}`);
   });
 };
 

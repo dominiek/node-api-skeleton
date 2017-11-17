@@ -1,10 +1,10 @@
 
-require('babel-core/register');
-require('babel-polyfill');
-
-import User from '../models/user';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import User from '../models/user';
+
+require('babel-core/register');
+require('babel-polyfill');
 
 const BCRYPT_SALT_ROUNDS = 10;
 const JWT_SECRET = 'dnu34idf43jqw723p00djkdop';

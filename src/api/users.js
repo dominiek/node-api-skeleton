@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
 
 import { Router } from 'express';
 import asyncWrap from 'express-async-wrapper';
@@ -12,13 +13,13 @@ import {
 } from '../lib/users';
 import User from '../models/user';
 
-export default ({ config, db }) => {
+export default () => {
   const api = Router();
 
   api.use(fetchSession);
 
   // Create user (signup)
-  api.post('/', asyncWrap(async (req, res, next) => {
+  api.post('/', asyncWrap(async (req, res) => {
     const user = await signup(req.body);
     res.json({ result: user });
   }));
@@ -58,12 +59,6 @@ export default ({ config, db }) => {
     res.json({ result: users });
   }));
 
-  // Admin list users
-  api.get('/', requireUser('admin'), asyncWrap(async (req, res) => {
-    const users = await User.find();
-    res.json({ result: users });
-  }));
-
   // Admin get user
   api.get('/:id', requireUser('admin'), asyncWrap(async (req, res) => {
     const user = await User.findById(req.params.id);
@@ -75,7 +70,7 @@ export default ({ config, db }) => {
     const user = await User.findById(req.params.id);
     if (!user) return next(new Error('No such user'));
     await user.remove();
-    res.json({ result: { success: true } });
+    return res.json({ result: { success: true } });
   }));
 
   // Admin update user
@@ -84,7 +79,7 @@ export default ({ config, db }) => {
     if (!user) return next(new Error('No such user'));
     user.set(req.body);
     await user.save();
-    res.json({ result: user });
+    return res.json({ result: user });
   }));
 
   return api;
