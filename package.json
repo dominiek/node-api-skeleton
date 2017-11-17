@@ -47,10 +47,6 @@
     "supertest": "^3.0.0"
   },
   "jest": {
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
     "setupFiles": [
       "<rootDir>/src/lib/setupTests.js"
     ]

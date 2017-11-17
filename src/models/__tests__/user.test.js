@@ -1,5 +1,5 @@
 
-import { setupMongooseDb, teardownMongooseDb } from 'lib/testUtils'
+import { setupMongooseDb, teardownMongooseDb } from '../../lib/testUtils'
 import User from '../user'
 
 beforeAll(async () => {
@@ -16,6 +16,8 @@ describe('User', () => {
     await user.save()
     const results = await User.find({email: 'info@me.com'})
     expect(results.length).toBe(1)
+    const savedUser = results[0]
+    expect(savedUser.createdAt > 1)
   });
 
 });
