@@ -35,17 +35,17 @@ _Note: A Python version of this project can be found [here](https://github.com/d
 All routes are name spaced with a v1 version:
 
 ```
-POST    /1/users                       # Create user
-GET     /1/users                       # Search/List users (for admin)
-GET     /1/users/:user_id              # Get user (admin only)
-DELETE  /1/users/:user_id              # Delete user (admin only)
-POST    /1/users/:user_id              # Update user (admin only)
+POST    /1/users                       # Create user (signup)
+POST    /1/users/sessions              # Create session / jwt (login)
 GET     /1/users/self                  # Get my user info
 DELETE  /1/users/self                  # Delete my account
 POST    /1/users/self                  # Update my account
-POST    /1/users/sessions              # Get auth token (create session)
 POST    /1/users/password/forgot       # Get forgot password token
 POST    /1/users/password/reset        # Use reset password token to set new password
+GET     /1/users                       # Admin: Search/List users
+GET     /1/users/:user_id              # Admin: Get user
+DELETE  /1/users/:user_id              # Admin: Delete user
+POST    /1/users/:user_id              # Admin: Update user
 ```
 
 ## Install Dependencies
