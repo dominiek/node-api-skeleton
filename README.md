@@ -13,6 +13,7 @@ Combining the Node.js/ES6 libs du jour for the purpose of providing JSON APIs fo
 * User encryption using BCrypt
 * AirBnB style syntax and ES linting
 * Configuration using environment variables
+* DB fixtures (admin user) populated on boot so that you're ready to roll
 
 _Note: A Python version of this project can be found [here](https://github.com/dominiek/python-api-skeleton)_
 
@@ -76,6 +77,8 @@ All values in `config/defaults.json` can be overwritten using environment variab
 - `API_BIND_HOST` - Host to bind to, defaults to `"0.0.0.0"`
 - `API_BIND_PORT` - Port to bind to, defaults to `3005`
 - `API_MONGO_URI` - MongoDB URI to connect to, defaults to `mongodb://localhost/skeleton_dev`
+- `API_ADMIN_EMAIL` - Default root admin user `admin@skeleton.ai`
+- `API_ADMIN_PASSWORD` - Default root admin password `admin.skeleton`
 
 ## Building the Container
 
@@ -102,3 +105,4 @@ docker build -t node-api-skeleton .
 - [x] Add user attribute cleansing
 - [x] Fix docker
 - [x] Add forgot password API
+- [x] Add db fixtures facility with admin pass

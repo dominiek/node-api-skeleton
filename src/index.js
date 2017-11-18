@@ -8,6 +8,7 @@ import nodeEnvConfiguration from 'node-env-configuration';
 import initializeDb from './db';
 import middleware from './middleware';
 import api from './api';
+import setupFixtures from './lib/setupFixtures';
 import configDefaults from '../config/defaults.json';
 
 const config = nodeEnvConfiguration({
@@ -42,6 +43,8 @@ const jsonErrorHandler = (err, req, res, next) => {
 
 const initApp = async () => {
   const db = await initializeDb({ config });
+  await setupFixtures();
+
   // internal middleware
   app.use(middleware({ config, db }));
 

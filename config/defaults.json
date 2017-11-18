@@ -5,5 +5,10 @@
   },
   "mongo": {
     "uri": "mongodb://localhost/skeleton_dev"
+  },
+  "admin": {
+    "username": "admin",
+    "email": "admin@skeleton.ai",
+    "password": "admin.skeleton"
   }
 }
