@@ -44,13 +44,9 @@ const jsonErrorHandler = (err, req, res, next) => {
 const initApp = async () => {
   const db = await initializeDb({ config });
   await setupFixtures();
-
-  // internal middleware
   app.use(middleware({ config, db }));
-
-  // api router
   app.use('/', api({ config, db }));
-
+  app.use(jsonErrorHandler);
   return app;
 };
 
