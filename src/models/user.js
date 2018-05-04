@@ -1,15 +1,47 @@
+const { omit } = require('lodash');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-import mongoose from 'mongoose';
+const schema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      lowercase: true,
+      trim: true
+    },
+    name: { type: String, trim: true, required: true },
+    hashedPassword: { type: String }
+  },
+  {
+    timestamps: true
+  }
+);
 
-const schema = new mongoose.Schema({
-  email: { type: String, required: true, min: 3 },
-  username: { type: String, required: true, min: 3 },
-  name: { type: String },
-  hash: { type: String },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  role: { type: String, enum: ['user', 'admin'] },
-  resetPasswordToken: { type: String },
+schema.methods.verifyPassword = function verifyPassword(password) {
+  if (!this.hashedPassword) return false;
+  return bcrypt.compare(password, this.hashedPassword);
+};
+
+schema.virtual('password').set(function setPassword(password) {
+  this._password = password;
 });
 
-export default mongoose.models.User || mongoose.model('User', schema);
+schema.pre('save', async function preSave(next) {
+  if (this._password) {
+    const salt = await bcrypt.genSalt(12);
+    this.hashedPassword = await bcrypt.hash(this._password, salt);
+    delete this._password;
+  }
+  return next();
+});
+
+schema.methods.toResource = function toResource() {
+  return {
+    id: this._id,
+    ...omit(this.toObject(), ['_id', 'hashedPassword', '_password'])
+  };
+};
+
+module.exports = mongoose.models.User || mongoose.model('User', schema);
