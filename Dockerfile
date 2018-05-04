@@ -1,13 +1,16 @@
-FROM alpine:3.6
+FROM node/10.0-alpine
 
 ENV NODE_ENV production
 
 # Update & install required packages
-RUN apk add --update nodejs bash git yarn
+RUN apk add --update bash git make python g++
 
 # Install app dependencies
 COPY package.json /api/package.json
-RUN cd /api; yarn install
+RUN cd /api; npm ci
+
+# Fix bcrypt
+RUN cd /api; npm rebuild bcrypt --build-from-source
 
 # Copy app source
 COPY . /api
@@ -21,7 +24,7 @@ ENV PORT 8080
 # expose the port to outside world
 EXPOSE  8080
 
-RUN yarn build
+RUN apk del python make g++
 
 # start command as per package.json
-CMD ["yarn", "start"]
+CMD ["npm", "start"]

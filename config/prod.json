@@ -1,0 +1,19 @@
+{
+  "admin": {
+     "password": "[change me]"
+  },
+  "jwt": {
+    "secret": "[change me]"
+  },
+  "postmark": {
+    "apikey": "[change me]"
+  },
+  "mongo": {
+    "uri": "mongodb://localhost/skeleton_prod"
+  },
+  "app": {
+    "appName": "Skeleton",
+    "url": "[change me]",
+    "adminUrl": "[change me]"
+  }
+}

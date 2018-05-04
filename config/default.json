@@ -1,0 +1,37 @@
+{
+  "cors": {
+    "exposeHeaders": ["content-length"],
+    "maxAge": 600
+  },
+  "bind": {
+    "port": 3005,
+    "host": "0.0.0.0"
+  },
+  "mongo": {
+    "uri": "mongodb://localhost/skeleton_dev",
+    "debug": false,
+    "options": {}
+  },
+  "admin": {
+    "name": "admin",
+    "email": "admin@skeleton.ai",
+    "password": "password1"
+  },
+  "jwt": {
+    "secret": "jwt.secret",
+    "expiresIn": {
+      "temporary": "1d",
+      "regular": "30d",
+      "invite": "1d"
+    }
+  },
+  "app": {
+    "appName": "Skeleton",
+    "url": "http://localhost:3001",
+    "adminUrl": "http://localhost:3002"
+  },
+  "postmark": {
+    "from": "no-reply@skeleton.ai",
+    "apiKey": "postmark.apikey"
+  }
+}

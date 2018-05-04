@@ -1,0 +1,8 @@
+Welcome to ${appName} Registration
+---
+
+To proceed with your registration, use the following link:
+${adminUrl}/register?token=${token}
+---
+Best,
+The ${appName} Team

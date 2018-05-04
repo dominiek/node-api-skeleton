@@ -1,0 +1,25 @@
+{
+  "bind" : {
+    "host" : "API_BIND_HOST",
+    "port": "API_BIND_PORT"
+  },
+  "mongo": {
+    "uri": "API_MONGO_URI"
+  },
+  "admin": {
+    "email": "API_ADMIN_EMAIL",
+    "password": "API_ADMIN_PASSWORD"
+  },
+  "app": {
+    "appName": "API_APP_NAME",
+    "url": "API_APP_URL",
+    "adminUrl": "API_APP_ADMIN_URL"
+  },
+  "postmark": {
+    "from": "API_POSTMARK_FROM",
+    "apiKey": "API_POSTMARK_APIKEY"
+  },
+  "jwt": {
+    "secret": "API_JWT_SECRET"
+  }
+}
