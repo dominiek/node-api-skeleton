@@ -13,6 +13,5 @@ module.exports = async () => {
   db.once('open', () => {
     console.log('mongodb connected');
   });
-  console.log('123123');
   return db;
 };
