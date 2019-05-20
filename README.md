@@ -1,3 +1,6 @@
+
+Note: This has been moved to https://github.com/dominiek/sharkbone
+
 ## Directory Structure
 
 * `package.json` - Configure dependencies
