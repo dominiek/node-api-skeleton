@@ -1,5 +1,5 @@
 
-Note: This has been moved to https://github.com/dominiek/sharkbone
+Note: This has been moved to https://github.com/bedrockio/bedrock-core
 
 ## Directory Structure
 
