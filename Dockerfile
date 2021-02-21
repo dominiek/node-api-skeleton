@@ -7,7 +7,7 @@ RUN apk add --update bash git make python g++
 
 # Install app dependencies
 COPY package.json /api/package.json
-RUN cd /api; npm ci
+RUN cd /api; npm install
 
 # Fix bcrypt
 RUN cd /api; npm rebuild bcrypt --build-from-source
